@@ -1,0 +1,68 @@
+@extends('layouts.default')
+@section('content')
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                <h4 class="mb-sm-0">รายการหมวดหมู่</h4>
+
+                <div class="page-title-right">
+                    <a href="{{ route('masters.categories.create') }}">
+                        <button class="btn btn-sm btn-primary">
+                            <i class="ri-add-line align-middle fs-15"></i>
+                            เพิ่มหมวดหมู่
+                        </button>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ลำดับ</th>
+                            <th>รหัส</th>
+                            <th>ชื่อ</th>
+                            <th class="text-end">กระทำ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($categories as $category)
+                            <tr>
+                                <td>{{ $loop->iteration + $categories->firstItem() - 1 }}</td>
+                                <td>{{ Arr::get($category, 'code') }}</td>
+                                <td>{{ Arr::get($category, 'name') }}</td>
+                                <td class="text-end">
+                                    <a href="{{ route('masters.categories.edit', ['ref' => Arr::get($category, 'code')]) }}">
+                                        <button class="btn btn-sm btn-soft-info">แก้ไขรายละเอียด</button>
+                                    </a>
+                                    <form action="{{ route('masters.categories.destroy', ['ref' => $category->code]) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-soft-danger" onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบหมวดหมู่คนนี้?');">ลบ</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="9" class="text-center">
+                                    ไม่มีข้อมูลหมวดหมู่
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+@endsection
