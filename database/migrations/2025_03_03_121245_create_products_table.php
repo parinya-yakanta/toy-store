@@ -23,14 +23,11 @@ return new class extends Migration
             $table->integer('discount')->default(0);
             $table->integer('stock')->default(0);
             $table->string('image')->nullable();
-            $table->string('status')->default('active');
             $table->string('weight')->nullable();
             $table->string('dimension')->nullable();
-            $table->string('color')->nullable();
-            $table->string('material')->nullable();
-            $table->integer('cost')->default(0);
-            $table->integer('profit')->default(0);
             $table->timestamps();
+            $table->foreignId('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->softDeletes();
             $table->foreignId('deleted_by')->nullable();
             $table->foreign('deleted_by')->references('id')->on('users');

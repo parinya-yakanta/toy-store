@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\GoToHelper;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,11 +20,6 @@ class AuthController extends Controller
 {
     public function login()
     {
-        $checkAuth = Auth::user();
-        if ($checkAuth) {
-            return to_route('dashboard.index');
-        }
-
         return view('pages.auth.login');
     }
 
@@ -34,18 +31,13 @@ class AuthController extends Controller
                 [
                     'email' => 'required|email',
                     'password' => 'required|min:8|max:20',
-                ],
-                [
-                    'email.required' => 'Please enter your email.',
-                    'password.required' => 'Please enter your password',
-                    'password.regex' => 'The password must be at least 8 characters',
                 ]
             );
 
             if ($validator->fails()) {
                 flash()->addWarning($validator->errors()->first());
 
-                return back()->withInput()->withErrors($validator->errors());
+                return back()->withInput();
             }
 
             $user = User::where('email', $request->email)->first();
@@ -55,6 +47,8 @@ class AuthController extends Controller
 
                 return back()->withInput()->withErrors($validator->errors());
             }
+
+            DB::beginTransaction();
 
             $credentials = ['email' => $user->email, 'password' => $request->password];
             $attempt = Auth::attempt($credentials, $request->filled('remember'));
@@ -77,9 +71,10 @@ class AuthController extends Controller
 
             DB::commit();
 
-            return to_route('auth.login');
+            return GoToHelper::success('go to dashboard', 'dashboard.index');
         } catch (Exception $e) {
             error_log($e->getMessage());
+            return back()->with('fail', 'An error occurred while trying to log in.');
         }
     }
 
@@ -90,7 +85,7 @@ class AuthController extends Controller
             return to_route('dashboard.index');
         }
 
-        return view('pages.auth.forgot');
+        return view('pages.forgot');
     }
 
     public function forgotStore(Request $request)
@@ -163,7 +158,7 @@ class AuthController extends Controller
             ->first();
 
         if (! $checkCreateToken) {
-            return to_route('auth.forgot');
+            return to_route('forgot');
         }
 
         return view('pages.auth.reset-password', ['token' => $token, 'email' => $checkCreateToken->email]);
@@ -226,7 +221,7 @@ class AuthController extends Controller
         if (! $attempt) {
             flash()->addWarning("Can't sign in because email or password is wrong.");
 
-            return to_route('auth.login');
+            return to_route('login');
         }
 
         $updateLogin = $user->update(['last_login' => Carbon::now(), 'ip' => $request->ip()]);
@@ -239,7 +234,7 @@ class AuthController extends Controller
 
         DB::commit();
 
-        return to_route('auth.login');
+        return to_route('login');
     }
 
     public function logout(Request $request)
@@ -247,6 +242,6 @@ class AuthController extends Controller
         Session::flush();
         Auth::logout();
 
-        return to_route('auth.login');
+        return to_route('login');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\CommonHelper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -10,6 +11,8 @@ class Product extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'category_id',
+        'brand_id',
         'name',
         'code',
         'description',
@@ -21,13 +24,8 @@ class Product extends Model
         'status',
         'weight',
         'dimension',
-        'color',
-        'material',
-        'cost',
-        'profit',
-        'category_id',
-        'brand_id',
         'deleted_by',
+        'user_id',
     ];
 
     public function category()
@@ -38,5 +36,10 @@ class Product extends Model
     public function brand()
     {
         return $this->belongsTo(Brand::class);
+    }
+
+    public function getImageAttribute($value)
+    {
+        return CommonHelper::getImage($value);
     }
 }

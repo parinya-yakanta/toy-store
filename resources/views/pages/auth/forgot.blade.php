@@ -14,7 +14,7 @@
         @endif
     </div>
     <div class="p-2 mt-4">
-        <form action="{{ route('auth.forgot.store') }}" method="POST">
+        <form action="{{ route('forgot.store') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
@@ -27,6 +27,6 @@
             </div>
         </form>
     </div>
-    <a href="{{ route('auth.login') }}" class="p-2 mt-4">go to login.</a>
+    <a href="{{ route('login') }}" class="p-2 mt-4">go to login.</a>
 </div>
 @endsection

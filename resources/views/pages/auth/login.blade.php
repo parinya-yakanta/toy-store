@@ -6,7 +6,7 @@
         <h5 class="text-primary">Toy Store</h5>
     </div>
     <div class="p-2 mt-4">
-        <form action="{{ route('auth.login') }}" method="POST">
+        <form action="{{ route('login.store') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
@@ -16,7 +16,7 @@
 
             <div class="mb-3">
                 <div class="float-end">
-                    <a href="{{ route('auth.forgot') }}" class="text-muted">Forgot password?</a>
+                    <a href="{{ route('forgot') }}" class="text-muted">Forgot password?</a>
                 </div>
                 <label class="form-label" for="password-input">Password</label>
                 <div class="position-relative auth-pass-inputgroup mb-3">

@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.default-layout')
 @section('content')
 <div class="container-fluid">
 
@@ -24,8 +24,8 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <div class="card">
-                <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
+            <div class="card p-4">
+                <table id="brands-table" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
                     <thead>
                         <tr>
                             <th>ลำดับ</th>
@@ -65,4 +65,11 @@
     </div>
 
 </div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function() {
+        $('#brands-table').DataTable();
+    });
+    </script>
 @endsection

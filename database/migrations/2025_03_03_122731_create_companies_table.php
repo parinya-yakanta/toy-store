@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -18,11 +19,18 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
-            $table->string('website')->nullable();
-            $table->string('logo')->nullable();
-            $table->string('fax')->nullable();
             $table->timestamps();
         });
+
+        DB::table('companies')->insert([
+            'name' => 'Company 1',
+            'tax_code' => '123456789',
+            'email' => 'company@test.com',
+            'phone' => '0123456789',
+            'address' => 'Echo Park, Los Angeles, California 90026, United States',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     /**

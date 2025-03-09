@@ -1,0 +1,15 @@
+{
+    "open sans": {
+        "300": "\/Users\/yakanta\/dev\/Project\/toy-store\/storage\/fonts\/open_sans_300_8513b9024ad211a10e857eba11f0f357",
+        "normal": "\/Users\/yakanta\/dev\/Project\/toy-store\/storage\/fonts\/open_sans_normal_2bf6e8a03908d49a7fa7b1094b0c2804",
+        "500": "\/Users\/yakanta\/dev\/Project\/toy-store\/storage\/fonts\/open_sans_500_663f11545dfeea65b44b2da12b5a66b1",
+        "600": "\/Users\/yakanta\/dev\/Project\/toy-store\/storage\/fonts\/open_sans_600_94288badef373364367fbfb769e688ce",
+        "bold": "open_sans_bold_0e7196744e416eea97ecd5b9781a44c2"
+    },
+    "thsarabunnew": {
+        "normal": "\/Users\/yakanta\/dev\/Project\/toy-store\/storage\/fonts\/thsarabunnew_normal_e984769ebf4778ba1e561cff19938722",
+        "bold": "\/Users\/yakanta\/dev\/Project\/toy-store\/storage\/fonts\/thsarabunnew_bold_14d403af5c4c6b1e3de7d23d7d41c90f",
+        "italic": "\/Users\/yakanta\/dev\/Project\/toy-store\/storage\/fonts\/thsarabunnew_italic_41e44f7e5e30079e56e491b5aa736ec2",
+        "bold_italic": "thsarabunnew_bold_italic_afde880ffd2816c249ff249a53127faa"
+    }
+}

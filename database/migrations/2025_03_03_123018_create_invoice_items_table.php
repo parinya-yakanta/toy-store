@@ -19,7 +19,6 @@ return new class extends Migration
             $table->integer('price')->default(0);
             $table->integer('discount')->default(0);
             $table->integer('total')->default(0);
-            $table->string('status')->default('pending');
             $table->string('payment')->default('unpaid');
             $table->timestamps();
         });

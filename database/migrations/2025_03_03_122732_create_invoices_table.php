@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->string('code')->unique();
             $table->integer('total')->default(0);
-            $table->string('status')->default('pending');
             $table->string('payment')->default('unpaid');
             $table->timestamps();
             $table->softDeletes();

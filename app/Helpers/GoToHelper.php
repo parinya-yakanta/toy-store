@@ -8,7 +8,7 @@ class GoToHelper
     {
         flash()->addWarning($message);
         if($to !== 'back') {
-            return to_route($to, $parameter);
+            return redirect()->route($to, $parameter);
         }
         return back();
     }
@@ -23,12 +23,7 @@ class GoToHelper
     {
         flash()->addSuccess($message);
         if($to !== 'back') {
-            try {
-                return to_route($to, $parameter);
-            } catch (\Symfony\Component\Routing\Exception\RouteNotFoundException $e) {
-                error_log($e->getMessage());
-                return back();
-            }
+            return redirect()->route($to, $parameter);
         }
         return back();
     }
@@ -37,7 +32,7 @@ class GoToHelper
     {
         flash()->addInfo($message);
         if($to !== 'back') {
-            return to_route($to, $parameter);
+            return redirect()->route($to, $parameter);
         }
         return back();
     }

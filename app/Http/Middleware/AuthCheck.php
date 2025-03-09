@@ -14,20 +14,18 @@ class AuthCheck
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
         $check = Auth::check();
-        $admin = Auth::user();
 
         if (! $check) {
-            return redirect()->route('auth.login');
+            Auth::logout();
+            return redirect()->route('login');
         }
 
-        if (! $admin) {
-            return redirect()->route('auth.login');
-        }
         return $next($request);
     }
 }

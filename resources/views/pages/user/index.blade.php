@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.default-layout')
 @section('content')
 <div class="container-fluid">
 
@@ -24,15 +24,15 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <div class="card">
-                <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
+            <div class="card p-4">
+                <table id="users-table" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
                     <thead>
                         <tr>
                             <th>ลำดับ</th>
                             <th>รหัส</th>
                             <th>ชื่อ</th>
                             <th>เบอร์โทร</th>
-                            <th>เขาระบบล่าสุดเมื่อ</th>
+                            <th>เข้าระบบล่าสุดเมื่อ</th>
                             <th class="text-end">กระทำ</th>
                         </tr>
                     </thead>
@@ -50,7 +50,7 @@
                                 <td>{{ Arr::get($user, 'phone') }}</td>
                                 <td>{{ Arr::get($user, 'last_login')?->format('d/m/Y H:i') ?? 'ยังไม่เคยเข้าระบบ' }}</td>
                                 <td class="text-end">
-                                    <a href="{{ route('users.profile', ['ref' => Arr::get($user, 'code')]) }}">
+                                    <a href="{{ route('my.profile', ['ref' => Arr::get($user, 'code')]) }}">
                                         <button class="btn btn-sm btn-soft-info">ดูรายละเอียด</button>
                                     </a>
                                     <form action="{{ route('users.destroy', ['ref' => $user->code]) }}" method="POST" style="display:inline;">
@@ -74,4 +74,12 @@
     </div>
 
 </div>
+@endsection
+
+@section('script')
+<script>
+    $(document).ready(function() {
+        $('#users-table').DataTable();
+    });
+    </script>
 @endsection
