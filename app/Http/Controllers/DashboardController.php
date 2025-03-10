@@ -31,6 +31,7 @@ class DashboardController extends Controller
                 // Calculate total profit (total sales - total cost)
                 DB::raw('SUM(invoice_items.quantity * (invoice_items.price - products.original_price)) as total_profit')
             )
+            ->where('invoices.status', 'paid')
             ->whereYear('invoices.created_at', $year)
             ->groupBy(DB::raw('YEAR(invoices.created_at)'), DB::raw('MONTH(invoices.created_at)'))
             ->orderBy('year', 'asc')
@@ -54,6 +55,7 @@ class DashboardController extends Controller
                 // คำนวณกำไร (ยอดขาย - ต้นทุน)
                 DB::raw('SUM(invoice_items.quantity * (invoice_items.price - products.original_price)) as total_profit')
             )
+            ->where('invoices.status', 'paid')
             ->whereYear('invoices.created_at', $year)
             ->whereMonth('invoices.created_at', date('m')) // กรองเฉพาะเดือนปัจจุบัน
             ->groupBy(DB::raw('DAY(invoices.created_at)'))
