@@ -50,9 +50,6 @@
                                                     <option value="cancel"
                                                         {{ Arr::get($invoice, 'payment') == 'cancel' ? 'selected' : '' }}>
                                                         ยกเลิก</option>
-                                                    <option value=""
-                                                        {{ !in_array(Arr::get($invoice, 'payment'), ['paid', 'unpaid', 'cancel']) ? 'selected' : '' }}>
-                                                        ไม่มีสถานะ</option>
                                                 </select>
                                                 <button type="submit" class="btn btn-warning text-dark">อัพเดต</button>
                                             </div>
