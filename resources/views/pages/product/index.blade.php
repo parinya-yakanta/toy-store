@@ -9,12 +9,14 @@
                 <h4 class="mb-sm-0">รายการสินค้า</h4>
 
                 <div class="page-title-right">
-                    <a href="{{ route('products.create') }}">
-                        <button class="btn btn-sm btn-primary">
-                            <i class="ri-add-line align-middle fs-15"></i>
-                            เพิ่มสินค้า
-                        </button>
-                    </a>
+                    @if (auth()->user()?->role == 'admin')
+                        <a href="{{ route('products.create') }}">
+                            <button class="btn btn-sm btn-primary">
+                                <i class="ri-add-line align-middle fs-15"></i>
+                                เพิ่มสินค้า
+                            </button>
+                        </a>
+                    @endif
                 </div>
 
             </div>
@@ -71,14 +73,16 @@
                                     <a href="{{ route('invoices.create-invoice', ['selectedProducts' => [Arr::get($product, 'id')]]) }}">
                                         <button class="btn btn-sm btn-soft-success">ขาย</button>
                                     </a>
+                                    @if (auth()->user()?->role == 'admin')
                                     <a href="{{ route('products.edit', ['ref' => Arr::get($product, 'code')]) }}">
                                         <button class="btn btn-sm btn-soft-info">แก้ไขรายละเอียด</button>
                                     </a>
-                                    <form action="{{ route('products.destroy', ['ref' => $product->code]) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-soft-danger" onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบสินค้าคนนี้?');">ลบ</button>
-                                    </form>
+                                        <form action="{{ route('products.destroy', ['ref' => $product->code]) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-soft-danger" onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบสินค้าคนนี้?');">ลบ</button>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @empty

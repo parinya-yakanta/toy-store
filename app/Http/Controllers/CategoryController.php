@@ -19,6 +19,10 @@ class CategoryController extends Controller
 
     public function create(Request $request)
     {
+        if (auth()->user()->role != 'admin') {
+            return back()->with('error', 'You are not authorized to access this page');
+        }
+
         return view('pages.category.create');
     }
 
@@ -103,6 +107,10 @@ class CategoryController extends Controller
 
     public function edit(Request $request)
     {
+        if (auth()->user()->role != 'admin') {
+            return back()->with('error', 'You are not authorized to access this page');
+        }
+        
         $categoryCode = $request->query('ref', 0);
         $category = Category::where('code', $categoryCode)->first();
 

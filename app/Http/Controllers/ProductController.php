@@ -27,6 +27,10 @@ class ProductController extends Controller
 
     public function create()
     {
+        if (auth()->user()->role != 'admin') {
+            return back()->with('error', 'You are not authorized to access this page');
+        }
+
         $brands = Brand::get();
         $categories = Category::get();
         return view('pages.product.create', compact('brands', 'categories'));
@@ -85,6 +89,10 @@ class ProductController extends Controller
 
     public function edit(Request $request)
     {
+        if (auth()->user()->role != 'admin') {
+            return back()->with('error', 'You are not authorized to access this page');
+        }
+        
         $code = $request->query('ref', 0);
         $product = Product::where('code', $code)->first();
 
@@ -128,7 +136,7 @@ class ProductController extends Controller
         if ($request->input('stock') < $product->stock) {
             return GoToHelper::error('Stock cannot be less than the current stock');
         }
-        
+
         $inputs = [
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,

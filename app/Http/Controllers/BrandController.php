@@ -19,6 +19,10 @@ class BrandController extends Controller
 
     public function create(Request $request)
     {
+        if (auth()->user()->role != 'admin') {
+            return back()->with('error', 'You are not authorized to access this page');
+        }
+
         return view('pages.brand.create');
     }
 
@@ -103,6 +107,10 @@ class BrandController extends Controller
 
     public function edit(Request $request)
     {
+        if (auth()->user()->role != 'admin') {
+            return back()->with('error', 'You are not authorized to access this page');
+        }
+        
         $brandCode = $request->query('ref', 0);
         $brand = Brand::where('code', $brandCode)->first();
 

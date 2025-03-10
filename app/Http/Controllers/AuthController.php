@@ -71,7 +71,7 @@ class AuthController extends Controller
 
             DB::commit();
 
-            return GoToHelper::success('go to dashboard', 'dashboard.index');
+            return GoToHelper::success('login success', 'dashboard.index');
         } catch (Exception $e) {
             error_log($e->getMessage());
             return back()->with('fail', 'An error occurred while trying to log in.');
@@ -85,7 +85,7 @@ class AuthController extends Controller
             return to_route('dashboard.index');
         }
 
-        return view('pages.forgot');
+        return view('pages.auth.forgot');
     }
 
     public function forgotStore(Request $request)
@@ -134,17 +134,17 @@ class AuthController extends Controller
             return back()->with('fail', 'create token fail!');
         }
 
-        $sendEmail = Mail::send('emails.forgot-password', ['token' => $token], function ($message) use ($request) {
-            $message->to($request->email);
-            $message->from(env('MAIL_FROM_ADDRESS', 'no-reply@mailjet.xxx.dev'), 'Toy Store');
-            $message->subject('Reset Password Toy Store');
-        });
+        // $sendEmail = Mail::send('emails.forgot-password', ['token' => $token], function ($message) use ($request) {
+        //     $message->to($request->email);
+        //     $message->from(env('MAIL_FROM_ADDRESS', 'no-reply@mailjet.xxx.dev'), 'Toy Store');
+        //     $message->subject('Reset Password Toy Store');
+        // });
 
-        if (! $sendEmail) {
-            DB::rollBack();
+        // if (! $sendEmail) {
+        //     DB::rollBack();
 
-            return back()->with('fail', 'send email fail!');
-        }
+        //     return back()->with('fail', 'send email fail!');
+        // }
 
         DB::commit();
 

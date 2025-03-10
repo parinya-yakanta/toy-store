@@ -9,12 +9,14 @@
                 <h4 class="mb-sm-0">รายการหมวดหมู่</h4>
 
                 <div class="page-title-right">
-                    <a href="{{ route('masters.categories.create') }}">
-                        <button class="btn btn-sm btn-primary">
-                            <i class="ri-add-line align-middle fs-15"></i>
-                            เพิ่มหมวดหมู่
-                        </button>
-                    </a>
+                    @if (auth()->user()?->role == 'admin')
+                        <a href="{{ route('masters.categories.create') }}">
+                            <button class="btn btn-sm btn-primary">
+                                <i class="ri-add-line align-middle fs-15"></i>
+                                เพิ่มหมวดหมู่
+                            </button>
+                        </a>
+                    @endif
                 </div>
 
             </div>
@@ -31,7 +33,9 @@
                             <th>ลำดับ</th>
                             <th>รหัส</th>
                             <th>ชื่อ</th>
+                            @if (auth()->user()?->role == 'admin')
                             <th class="text-end">กระทำ</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -40,6 +44,7 @@
                                 <td>{{ $loop->iteration + $categories->firstItem() - 1 }}</td>
                                 <td>{{ Arr::get($category, 'code') }}</td>
                                 <td>{{ Arr::get($category, 'name') }}</td>
+                                @if (auth()->user()?->role == 'admin')
                                 <td class="text-end">
                                     <a href="{{ route('masters.categories.edit', ['ref' => Arr::get($category, 'code')]) }}">
                                         <button class="btn btn-sm btn-soft-info">แก้ไขรายละเอียด</button>
@@ -50,6 +55,7 @@
                                         <button type="submit" class="btn btn-sm btn-soft-danger" onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบหมวดหมู่คนนี้?');">ลบ</button>
                                     </form>
                                 </td>
+                                @endif
                             </tr>
                         @empty
                             <tr>

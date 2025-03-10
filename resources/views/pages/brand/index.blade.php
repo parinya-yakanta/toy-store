@@ -9,12 +9,14 @@
                 <h4 class="mb-sm-0">รายการแบรนด์</h4>
 
                 <div class="page-title-right">
-                    <a href="{{ route('masters.brands.create') }}">
-                        <button class="btn btn-sm btn-primary">
-                            <i class="ri-add-line align-middle fs-15"></i>
-                            เพิ่มแบรนด์
-                        </button>
-                    </a>
+                    @if (auth()->user()?->role == 'admin')
+                        <a href="{{ route('masters.brands.create') }}">
+                            <button class="btn btn-sm btn-primary">
+                                <i class="ri-add-line align-middle fs-15"></i>
+                                เพิ่มแบรนด์
+                            </button>
+                        </a>
+                    @endif
                 </div>
 
             </div>
@@ -31,7 +33,9 @@
                             <th>ลำดับ</th>
                             <th>รหัส</th>
                             <th>ชื่อ</th>
+                            @if (auth()->user()?->role == 'admin')
                             <th class="text-end">กระทำ</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -40,16 +44,18 @@
                                 <td>{{ $loop->iteration + $brands->firstItem() - 1 }}</td>
                                 <td>{{ Arr::get($brand, 'code') }}</td>
                                 <td>{{ Arr::get($brand, 'name') }}</td>
-                                <td class="text-end">
-                                    <a href="{{ route('masters.brands.edit', ['ref' => Arr::get($brand, 'code')]) }}">
-                                        <button class="btn btn-sm btn-soft-info">แก้ไขรายละเอียด</button>
-                                    </a>
-                                    <form action="{{ route('masters.brands.destroy', ['ref' => $brand->code]) }}" method="POST" style="display:inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-soft-danger" onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบแบรนด์คนนี้?');">ลบ</button>
-                                    </form>
-                                </td>
+                                @if (auth()->user()?->role == 'admin')
+                                    <td class="text-end">
+                                        <a href="{{ route('masters.brands.edit', ['ref' => Arr::get($brand, 'code')]) }}">
+                                            <button class="btn btn-sm btn-soft-info">แก้ไขรายละเอียด</button>
+                                        </a>
+                                        <form action="{{ route('masters.brands.destroy', ['ref' => $brand->code]) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-soft-danger" onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบแบรนด์คนนี้?');">ลบ</button>
+                                        </form>
+                                    </td>
+                                @endif
                             </tr>
                         @empty
                             <tr>
