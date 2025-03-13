@@ -97,7 +97,7 @@ class UserController extends Controller
         if (auth()->user()->role === 'employee' && auth()->user()->id !== $user->id) {
             return GoToHelper::error('You are not authorized to view this page');
         }
-        
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'phone' => 'nullable|string|max:20',
@@ -122,10 +122,6 @@ class UserController extends Controller
 
         DB::transaction(function () use ($request, $user, $inputs) {
             if ($request->hasFile('avatar')) {
-                if ($user->avatar) {
-                    CommonHelper::deleteFile($user->avatar);
-                }
-
                 $inputs['avatar'] = CommonHelper::saveFile($request->file('avatar'), 'avatar', $user->id);
             }
 

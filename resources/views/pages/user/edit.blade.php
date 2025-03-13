@@ -32,7 +32,7 @@
                             <label for="image-upload" class="position-absolute top-0 start-0 w-100 h-100"
                                 style="cursor: pointer;">
                                 <img id="output-avatar"
-                                    src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('assets/images/avatar-dumy.png') }}"
+                                    src="{{ $user->avatar ? $user->avatar : asset('assets/images/avatar-dumy.png') }}"
                                     class="border border-success rounded-circle img-thumbnail w-100 h-100"
                                     style="object-fit: cover;">
                             </label>

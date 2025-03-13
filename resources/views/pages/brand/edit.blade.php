@@ -20,7 +20,7 @@
         </div>
         <!-- end page title -->
 
-        <form action="{{ route('masters.brands.update', ['ref' => Arr::get($category, 'code')]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('masters.brands.update', ['ref' => Arr::get($brand, 'code')]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT') {{-- Laravel requires this for updating resources --}}
 
@@ -31,7 +31,7 @@
                             <div class="mb-3">
                                 <label class="form-label" for="name">ชื่อแบรนด์</label>
                                 <input class="form-control" id="name" name="name" type="text"
-                                    value="{{ old('name', $category->name) }}" placeholder="Enter your name">
+                                    value="{{ old('name', $brand->name) }}" placeholder="Enter your name">
                                 <div class="text-danger">{{ $errors->first('name') }}</div>
                             </div>
                         </div>
