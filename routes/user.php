@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::name('users.')->prefix('users')->group(function () {
     Route::get('', [UserController::class, 'index'])->name('index');
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
     Route::get('/create', [UserController::class, 'create'])->name('create');
     Route::post('store', [UserController::class, 'store'])->name('store');
     Route::delete('/destroy', [UserController::class, 'delete'])->name('destroy');
@@ -25,4 +26,6 @@ Route::name('users.')->prefix('users')->group(function () {
 
 Route::name('my.')->prefix('my')->group(function () {
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::get('/edit', [UserController::class, 'edit'])->name('edit');
+    Route::put('/update', [UserController::class, 'update'])->name('update');
 });

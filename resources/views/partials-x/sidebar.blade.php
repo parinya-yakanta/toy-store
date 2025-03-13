@@ -32,7 +32,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ Request::is('my/profile*') == 1 ? 'active' : '' }}" href="{{ route('my.profile', ['ref' => auth()->user()?->code]) }}">
+                    <a class="nav-link menu-link {{ Request::is('my*') == 1 ? 'active' : '' }}" href="{{ route('my.profile', ['ref' => auth()->user()?->code]) }}">
                         <i class="ri-emotion-line"></i> <span>โปรไฟล์</span>
                     </a>
                 </li>

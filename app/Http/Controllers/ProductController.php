@@ -16,7 +16,14 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::paginate(10);
+        $products = Product::with([
+            'category' => function ($query) {
+                $query->withTrashed();
+            },
+            'brand' => function ($query) {
+                $query->withTrashed();
+            },
+            ])->get();
         return view('pages.product.index', compact('products'));
     }
 
@@ -92,7 +99,7 @@ class ProductController extends Controller
         if (auth()->user()->role != 'admin') {
             return back()->with('error', 'You are not authorized to access this page');
         }
-        
+
         $code = $request->query('ref', 0);
         $product = Product::where('code', $code)->first();
 

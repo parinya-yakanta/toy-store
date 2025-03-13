@@ -128,7 +128,7 @@ class UserController extends Controller
             $user->update($inputs);
         });
 
-        return GoToHelper::success('User updated successfully', 'users.edit', ['ref' => $user->code]);
+        return GoToHelper::success('User updated successfully', $request->segment(1).'.edit', ['ref' => $user->code]);
     }
 
     public function delete(Request $request)

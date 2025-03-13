@@ -47,7 +47,13 @@ class InvoiceController extends Controller
     public function show(Request $request)
     {
         $code = $request->query('ref', 0);
-        $invoice = Invoice::where('code', $code)->first();
+        $invoice = Invoice::with([
+            'items' => function ($query) {
+                $query->with(['product' => function ($query) {
+                    $query->withTrashed();
+                }]);
+            },
+        ])->where('code', $code)->first();
 
         if (!$invoice) {
             return GoToHelper::error('Invoice not found');
@@ -67,7 +73,13 @@ class InvoiceController extends Controller
         }
 
         $code = $request->query('ref', 0);
-        $invoice = Invoice::where('code', $code)->first();
+        $invoice = Invoice::with([
+            'items' => function ($query) {
+                $query->with(['product' => function ($query) {
+                    $query->withTrashed();
+                }]);
+            },
+        ])->where('code', $code)->first();
 
         if (!$invoice) {
             return GoToHelper::error('Invoice not found');
@@ -102,11 +114,16 @@ class InvoiceController extends Controller
     public function preview(Request $request)
     {
         $code = $request->query('ref', 0);
-        $invoice = Invoice::where('code', $code)->firstOrFail();
+        $invoice = Invoice::with([
+            'items' => function ($query) {
+                $query->with(['product' => function ($query) {
+                    $query->withTrashed();
+                }]);
+            },
+        ])->where('code', $code)->firstOrFail();
 
         $pdf = Pdf::loadView('pages.invoice.pdf', compact('invoice'));
 
         return $pdf->stream('pages.invoice.pdf');
     }
-
 }

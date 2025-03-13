@@ -20,7 +20,7 @@
         </div>
         <!-- end page title -->
 
-        <form action="{{ route('users.update', ['ref' => Arr::get($user, 'code')]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route(Request::segment(1).'.update', ['ref' => Arr::get($user, 'code')]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT') {{-- Laravel requires this for updating resources --}}
 

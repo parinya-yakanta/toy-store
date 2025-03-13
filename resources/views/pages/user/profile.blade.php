@@ -53,7 +53,7 @@
             <div class="col-12 col-lg-auto order-last order-lg-0">
                 <div class="row text text-white-50 text-center">
                     <div class="flex-shrink-0">
-                        <a href="{{ route('users.edit', ['ref' => $user->code]) }}" class="btn btn-success"><i class="ri-edit-box-line align-bottom"></i> แก้ไขโปรไฟล์</a>
+                        <a href="{{ route(Request::segment(1).'.edit', ['ref' => $user->code]) }}" class="btn btn-success"><i class="ri-edit-box-line align-bottom"></i> แก้ไขโปรไฟล์</a>
                     </div>
                 </div>
             </div>

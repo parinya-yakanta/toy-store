@@ -44,7 +44,7 @@
                     <tbody>
                         @forelse ($products as $product)
                             <tr>
-                                <td>{{ $loop->iteration + $products->firstItem() - 1 }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ Arr::get($product, 'code') }}</td>
                                 <td>
                                     <div class="d-flex gap-2 align-items-center">

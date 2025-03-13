@@ -50,7 +50,7 @@
                                 <td>{{ Arr::get($user, 'phone') }}</td>
                                 <td>{{ Arr::get($user, 'last_login')?->format('d/m/Y H:i') ?? 'ยังไม่เคยเข้าระบบ' }}</td>
                                 <td class="text-end">
-                                    <a href="{{ route('my.profile', ['ref' => Arr::get($user, 'code')]) }}">
+                                    <a href="{{ route('users.profile', ['ref' => Arr::get($user, 'code')]) }}">
                                         <button class="btn btn-sm btn-soft-info">ดูรายละเอียด</button>
                                     </a>
                                     <form action="{{ route('users.destroy', ['ref' => $user->code]) }}" method="POST" style="display:inline;">
